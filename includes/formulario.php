@@ -18,10 +18,10 @@
         <form method="post" enctype="multipart/form-data">
             <div id="arquivo" class="mb-2">
                 <label for="file-upload">Upload de arquivos</label>
-                <input class="form-control" type="file" id="file-upload">
+                <input class="form-control" type="file" id="file-upload" name="arquivo">
             </div>
             <div id="submit-button">
-                <button type="submit btn btn-success">Enviar arquivo</button>
+                <input type="submit" class="btn btn-success" value="Enviar arquivo">
             </div>
         </form>
     </div>
