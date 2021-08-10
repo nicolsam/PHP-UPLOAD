@@ -11,6 +11,7 @@ use \App\File\Upload;
 // echo '<pre>';
 //     print_r($obUpload);
 //     echo '</pre>'; exit;
+
 if(isset($_FILES['arquivo'])) {
     // Instância de Upload
     $obUpload = new Upload($_FILES['arquivo']);
@@ -22,7 +23,7 @@ if(isset($_FILES['arquivo'])) {
     $sucesso = $obUpload->Upload(__DIR__ . '/files', false);
 
     if($sucesso) {
-        echo 'Arquivo <strong>' . $obUpload->getBasename() . '<string> enviado com sucesso';
+        echo 'Arquivo <strong>' . $obUpload->getBasename() . '</strong> enviado com sucesso';
         exit;
     }
 

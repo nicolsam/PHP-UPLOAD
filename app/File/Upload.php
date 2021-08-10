@@ -147,5 +147,32 @@ class Upload {
         // Retornar o próprio método
         return $this->getPossibleBasename($dir, $overwrite);
     }
+
+    /**
+     * Método responsável por criar instâncias de Upload para multiplos arquivos
+     *
+     * @param  array  $file $_FILES['campo']
+     *
+     * @return  array
+     */
+    public static function createMultiUpload($files) {
+        $uploads = [];
+
+        foreach($files['name'] as $key => $value) {
+            // Array de arquivo
+            $file = [
+                'name'     => $files['name'][$key],
+                'type'     => $files['type'][$key],
+                'tmp_name' => $files['tmp_name'][$key],
+                'error'    => $files['error'][$key],
+                'size'     => $files['size'][$key]
+            ];
+
+            // Nova instância
+            $uploads[] = new Upload($file);
+        }
+
+        return $uploads;
+    }
     
 }
