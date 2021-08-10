@@ -63,4 +63,39 @@ class Upload {
         $this->name      = $info['filename'];
         $this->extension = $info['extension'];
     }
+    /**
+     * Método responsável por retornar o nome do arquivo com sua extensão
+     *
+     * @return  [type]  [return description]
+     */
+    public function getBasename() {
+        // Validar extensão
+        $extension = strlen($this->extension) ? '.' . $this->extension : '';
+
+        // Retornar nome completo
+        return $this->name . $extension;
+    }
+
+    /**
+     * Método responsável por mover o arquivo de upload
+     *
+     * @param   string  $dir 
+     *
+     * @return  boolean 
+     */
+    public function Upload($dir) {
+        // Verificar error
+        if($this->error != 0) return false;
+
+        $path = $dir . '/' . $this->getBasename();
+
+        // echo '<pre>';
+        // print_r($path);
+        // echo '</pre>'; exit;
+
+        // Mover para a pasta de destino
+        return move_uploaded_file($this->tmpName, $path);
+            
+    }
+    
 }
