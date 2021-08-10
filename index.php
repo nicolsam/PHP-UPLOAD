@@ -7,11 +7,6 @@ require __DIR__ . '/vendor/autoload.php';
 
 use \App\File\Upload;
 
-
-// echo '<pre>';
-//     print_r($obUpload);
-//     echo '</pre>'; exit;
-
 if(isset($_FILES['arquivo'])) {
     // Instância de Upload
     $obUpload = new Upload($_FILES['arquivo']);
@@ -28,7 +23,6 @@ if(isset($_FILES['arquivo'])) {
     }
 
     die('Problemas ao enviar o arquivo');
-
 }
 
 include __DIR__ . '/includes/formulario.php';

@@ -7,11 +7,6 @@ require __DIR__ . '/vendor/autoload.php';
 
 use \App\File\Upload;
 
-
-// echo '<pre>';
-//     print_r($obUpload);
-//     echo '</pre>'; exit;
-
 if(isset($_FILES['arquivo'])) {
 
     $uploads = Upload::createMultiUpload($_FILES['arquivo']);
@@ -30,13 +25,8 @@ if(isset($_FILES['arquivo'])) {
 
         echo 'Problemas ao enviar o arquivo </br>';
     }
-    // // Instância de Upload
-    // $obUpload = new Upload($_FILES['arquivo']);
 
-
-
-    // die('Problemas ao enviar o arquivo');
-
+    exit;
 }
 
 include __DIR__ . '/includes/formulario-multi.php';
