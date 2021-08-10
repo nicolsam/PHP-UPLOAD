@@ -14,7 +14,7 @@ use \App\File\Upload;
 if(isset($_FILES['arquivo'])) {
     $obUpload = new Upload($_FILES['arquivo']);
 
-    $sucesso = $obUpload->Upload(__DIR__ . '/files');
+    $sucesso = $obUpload->Upload(__DIR__ . '/files', false);
 
     if($sucesso) {
         echo 'Arquivo enviado com sucesso';

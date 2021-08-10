@@ -46,6 +46,13 @@ class Upload {
     private $size;
 
     /**
+     * Contador de duplicação de arquivo
+     *
+     * @var integer
+     */
+    private $duplicates = 0;
+
+    /**
      * Construtor da classe
      *
      * @param   array  $file  $_FILES[campo]
@@ -63,39 +70,65 @@ class Upload {
         $this->name      = $info['filename'];
         $this->extension = $info['extension'];
     }
+    
+    /**
+     * Método responsável por mover o arquivo de upload
+     *
+     * @param   string  $dir 
+     * @param   boolean $overwrite
+     * @return  boolean 
+     */
+    public function Upload($dir, $overwrite = true) {
+        // Verificar error
+        if($this->error != 0) return false;
+
+        $path = $dir . '/' . $this->getPossibleBasename($dir, $overwrite);
+
+        // Mover para a pasta de destino
+        return move_uploaded_file($this->tmpName, $path);     
+    }
+
     /**
      * Método responsável por retornar o nome do arquivo com sua extensão
      *
      * @return  [type]  [return description]
      */
-    public function getBasename() {
+    private function getBasename() {
         // Validar extensão
         $extension = strlen($this->extension) ? '.' . $this->extension : '';
 
+        // Validar duplicação
+        $duplicates = $this->duplicates > 0 ? '-' . $this->duplicates : '';
+
         // Retornar nome completo
-        return $this->name . $extension;
+        return $this->name . $duplicates . $extension;
     }
 
     /**
-     * Método responsável por mover o arquivo de upload
+     * Método responsável por obter um nome possível para o arquivo
      *
-     * @param   string  $dir 
+     * @param   string  $dir       
+     * @param   boolean  $overwrite  
      *
-     * @return  boolean 
+     * @return  string             
      */
-    public function Upload($dir) {
-        // Verificar error
-        if($this->error != 0) return false;
+    private function getPossibleBasename($dir, $overwrite) {
+        // Sobrescrever arquivo
+        if($overwrite) return $this->getBasename();
 
-        $path = $dir . '/' . $this->getBasename();
+        // Não pode sobrescrever arquivos
+        $basename = $this->getBasename();
 
-        // echo '<pre>';
-        // print_r($path);
-        // echo '</pre>'; exit;
+        // Verificar duplicação
+        if(!file_exists($dir . '/' . $basename)) {
+            return $basename;
+        }
 
-        // Mover para a pasta de destino
-        return move_uploaded_file($this->tmpName, $path);
-            
+        // Incrementar duplicação
+        $this->duplicates++;
+
+        // Retornar o próprio método
+        return $this->getPossibleBasename($dir, $overwrite);
     }
     
 }
