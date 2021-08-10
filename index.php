@@ -12,12 +12,17 @@ use \App\File\Upload;
 //     print_r($obUpload);
 //     echo '</pre>'; exit;
 if(isset($_FILES['arquivo'])) {
+    // Instância de Upload
     $obUpload = new Upload($_FILES['arquivo']);
 
+    // Gera um nome aleatório para o arquivo
+    $obUpload->generateNewName();
+
+    // Move os arquivos de upload
     $sucesso = $obUpload->Upload(__DIR__ . '/files', false);
 
     if($sucesso) {
-        echo 'Arquivo enviado com sucesso';
+        echo 'Arquivo <strong>' . $obUpload->getBasename() . '<string> enviado com sucesso';
         exit;
     }
 

@@ -89,11 +89,28 @@ class Upload {
     }
 
     /**
+     * Método responsável por alterar o nome do arquivo
+     *
+     * @param   string  $name
+     *
+     */
+    public function setName($name) {
+        $this->name = name;
+    }
+
+    /**
+     * Método responsável por gerar um novo nome aleatório
+     */
+    public function generateNewName() {
+        $this->name = time() . '-' . rand(100000, 999999) . '-' . uniqid();
+    }
+
+    /**
      * Método responsável por retornar o nome do arquivo com sua extensão
      *
      * @return  [type]  [return description]
      */
-    private function getBasename() {
+    public function getBasename() {
         // Validar extensão
         $extension = strlen($this->extension) ? '.' . $this->extension : '';
 
