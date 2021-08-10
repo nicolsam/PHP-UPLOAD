@@ -2,7 +2,7 @@
     "name": "nicol/phpupload",
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app"
         }
     }
 }
