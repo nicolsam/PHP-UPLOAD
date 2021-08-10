@@ -55,7 +55,12 @@ class Upload {
     public function __construct($file) {
         $this->type    = $file['type'];
         $this->tmpName = $file['tmp_name'];
-        $this->error    = $file['error'];
+        $this->error   = $file['error'];
         $this->size    = $file['size'];
+
+        $info = pathinfo($file['name']);
+
+        $this->name      = $info['filename'];
+        $this->extension = $info['extension'];
     }
 }
